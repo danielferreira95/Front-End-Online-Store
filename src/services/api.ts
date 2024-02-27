@@ -1,12 +1,27 @@
+const BASE_URL = 'https://api.mercadolibre.com';
+
+// * retorna as categorias dos produtos.
 export async function getCategories() {
-  // Implemente aqui
+  const response = await fetch(`${BASE_URL}/sites/MLB/categories`);
+  const categories = await response.json();
+  return categories;
 }
 
-export async function getProductsFromCategoryAndQuery(/* categoryId, query */) {
-  // Implemente aqui! Quando o fizer, descomente os parâmetros que essa função recebe
+// * * faz busca pelo termo de busca (param query) e pelo id da categoria.
+export async function getProductsFromCategoryAndQuery(categoryId: string, query: string) {
+  const response = await
+  fetch(`${BASE_URL}/sites/MLB/search?category=${categoryId}&q=${query}`);
+  const productsFromCategoryAndQuery = await response.json();
+  return productsFromCategoryAndQuery;
 }
 
-export async function getProductById() {
-  // Esta implementação específica não é avaliada, mas pode ajudar você 🙂
-  // Atenção: essa função não deverá ser chamada na tela do carrinho de compras.
+// Esta implementação específica não é avaliada, mas pode ajudar você 🙂
+// Atenção: essa função não deverá ser chamada na tela do carrinho de compras.
+// * Retorna um produto com base no seu id.
+export async function getProductById(id: string) {
+  const response = await fetch(`${BASE_URL}/items?ids=${id},`);
+  const productById = await response.json();
+  return productById;
 }
+
+// getProductById('MLB4457830512').then((product) => console.log(product));
