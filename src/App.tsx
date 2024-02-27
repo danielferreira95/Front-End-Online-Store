@@ -1,23 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
+// import { useEffect } from 'react';
+// import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Home from './pages/Home';
 
 function App() {
+  //  ! Pessoal, essa função não será usada no projeto. Só foi criada porque eu queria ver o retorno das funções do req 01. no console. Preferi não apagá-la pq se algum de nós quisermos usar ela em algum momento durante o desenvolvimento do projeto, é só descomentar ela e os imports do useEffect e das funções getCategories e getProductsFromCategoryAndQuery.
+  // !Att, Raisa.
+/*   useEffect(() => {
+    async function fetchData() {
+      const categories = await getProductsFromCategoryAndQuery();
+      console.log(categories);
+    }
+
+    fetchData();
+  }, []); */
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={ logo } className="App-logo" alt="logo" />
-        <p>Edit src/App.js and save to reload.</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={ <Home /> } />
+    </Routes>
   );
 }
 
