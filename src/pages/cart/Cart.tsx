@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './style.css';
 import mockItensCart from '../../__mocks__/mockReq03';
 import { Itens } from './types';
 import CardCart from '../../components/CartCard';
@@ -12,6 +11,8 @@ function Cart() {
   console.log(itensCart);
   return (
     <div>
+      <h1>Carrinho de Compras</h1>
+      <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
       {itensCart.map((itemCart, i) => {
         return (<CardCart key={ i } itemCart={ itemCart } />);
       })}
