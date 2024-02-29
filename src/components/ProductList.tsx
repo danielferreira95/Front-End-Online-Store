@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ProductType, ProductListProps } from '../types';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import ProductDetails from '../pages/ProductDetails';
+import { Link } from 'react-router-dom';
 
 function ProductList({ categoryId }: ProductListProps) {
   const [products, setProducts] = useState<ProductType[]>([]); // Estado para os produtos
@@ -34,18 +36,18 @@ function ProductList({ categoryId }: ProductListProps) {
 
   return (
     // Renderiza a lista de produtos
-    <ul>
-      {products.map((product) => (
-        <li
+    <>
+      {products.map((product: ProductType) => (
+        <Link to={`/ProductDetails/${product.id}`}
           key={ product.id }
-          data-testid="product"
+          data-testid="product product-detail-link"
         >
           <h2>{product.title}</h2>
           <img src={ product.thumbnail } alt={ product.title } />
           <p>{product.price}</p>
-        </li>
+        </Link>
       ))}
-    </ul>
+      </>
   );
 }
 

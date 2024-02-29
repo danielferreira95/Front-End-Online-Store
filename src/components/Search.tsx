@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ProductType } from '../types';
+import { Link } from 'react-router-dom';
 
 function Search() {
   const [query, setQuery] = useState('');
@@ -27,16 +28,16 @@ function Search() {
       <p data-testid="home-initial-message">
         Digite algum termo de pesquisa ou escolha uma categoria.
       </p>
-
-      <ul>
         {products.map((product: ProductType) => (
-          <li key={ product.id } data-testid="product">
-            <h2>{product.title}</h2>
-            <img src={ product.thumbnail } alt={ product.title } />
-            <p>{product.price}</p>
-          </li>
+             <Link to={`/ProductDetails/${product.id}`}
+             key={ product.id }
+             data-testid="product product-detail-link"
+           >
+             <h2>{product.title}</h2>
+             <img src={ product.thumbnail } alt={ product.title } />
+             <p>{product.price}</p>
+           </Link>
         ))}
-      </ul>
     </div>
   );
 }
