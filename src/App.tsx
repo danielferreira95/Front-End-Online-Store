@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 // import { Link } from 'react-router-dom';
 import Home from './pages/Home';
+import Checkout from './pages/Checkout';
 import ScreenCart from './pages/ScreenCart';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
     <Routes>
       <Route path="/" element={ <Home /> } />
       <Route path="/cart" element={ <ScreenCart /> } />
+      <Route path="/checkout" element={ <Checkout /> } />
     </Routes>
 
   );

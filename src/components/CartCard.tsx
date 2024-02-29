@@ -1,4 +1,4 @@
-function CardCart({ itemCart: { name, price, quanty, img, key, id },
+function CardCart({ itemCart: { title, price, quanty, thumbnail, key, id },
   removeItem, increaseItem, decreaseItem }: any) {
   return (
     <div key={ key }>
@@ -10,8 +10,8 @@ function CardCart({ itemCart: { name, price, quanty, img, key, id },
       >
         Excluir
       </button>
-      <img src={ img } alt={ `Imagem do ${name}` } />
-      <p>{ name }</p>
+      <img src={ thumbnail } alt={ `Imagem do ${title}` } />
+      <p>{ title }</p>
       <button
         type="button"
         data-testid="product-increase-quantity"
