@@ -12,6 +12,7 @@ export type ProductType = {
   title: string,
   thumbnail: string,
   price: number,
+  installments?: {quantity?: number},
 };
 
 export type ProductListProps = {

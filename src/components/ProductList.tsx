@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ProductType, ProductListProps } from '../types';
 import { getProductsFromCategoryAndQuery } from '../services/api';
-import ProductDetails from '../pages/ProductDetails';
 import { Link } from 'react-router-dom';
 
 function ProductList({ categoryId }: ProductListProps) {
@@ -34,17 +33,27 @@ function ProductList({ categoryId }: ProductListProps) {
     return <div>{error}</div>;
   }
 
+  const handleAddToCard = ( product: ProductType ) => {
+    const products = localStorage.getItem("products") || "[]";
+    const carrinhoDeCompras = JSON.parse( products );
+    const isDuplicated = carrinhoDeCompras.find((cart: ProductType) => cart.id === product.id);
+    if(!isDuplicated){
+    localStorage.setItem("products", JSON
+    .stringify([...carrinhoDeCompras, { price: product.price, quanty: product.installments?.quantity, id: product.id, thumbnail: product.thumbnail, title: product.title }]));
+  } }
+
   return (
     // Renderiza a lista de produtos
     <>
-      {products.map((product: ProductType) => (
+      { products.map((product: ProductType) => (
         <Link to={`/ProductDetails/${product.id}`}
           key={ product.id }
-          data-testid="product product-detail-link"
-        >
-          <h2>{product.title}</h2>
+          data-testid="product-detail-link"
+          state={{ product: { price: product.price, thumbnail: product.thumbnail, title: product.title }} } >
+          <h2 data-testid="product">{ product.title }</h2>
           <img src={ product.thumbnail } alt={ product.title } />
-          <p>{product.price}</p>
+          <p>{ product.price }</p>
+          <button data-testid="product-add-to-cart" onClick={ () => handleAddToCard(product) }>Adicionar produto ao carrinho</button>
         </Link>
       ))}
       </>

@@ -28,16 +28,16 @@ function Search() {
       <p data-testid="home-initial-message">
         Digite algum termo de pesquisa ou escolha uma categoria.
       </p>
+      <ul>
         {products.map((product: ProductType) => (
-             <Link to={`/ProductDetails/${product.id}`}
-             key={ product.id }
-             data-testid="product product-detail-link"
-           >
-             <h2>{product.title}</h2>
+            <Link to={`/ProductDetails/${product.id}`}
+             key={ product.id } data-testid="product-detail-link">
              <img src={ product.thumbnail } alt={ product.title } />
-             <p>{product.price}</p>
+             <li data-testid="product">{ product.title }</li>
+             <span>{ product.price }</span>
            </Link>
         ))}
+        </ul>
     </div>
   );
 }
