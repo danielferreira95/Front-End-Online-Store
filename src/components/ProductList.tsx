@@ -39,14 +39,14 @@ function ProductList({ categoryId }: ProductListProps) {
     const isDuplicated = carrinhoDeCompras.find((cart: ProductType) => cart.id === product.id);
     if(!isDuplicated){
     localStorage.setItem("products", JSON
-    .stringify([...carrinhoDeCompras, { price: product.price, quanty: product.installments?.quantity, id: product.id, thumbnail: product.thumbnail, title: product.title }]));
+    .stringify([...carrinhoDeCompras, { price: product.price, quanty: 1, id: product.id, thumbnail: product.thumbnail, title: product.title }]));
   } }
 
   return (
     // Renderiza a lista de produtos
     <>
       { products.map((product: ProductType) => (
-        <Link to={`/ProductDetails/${product.id}`}
+        <Link to={`/ProductDetails`}
           key={ product.id }
           data-testid="product-detail-link"
           state={{ product: { price: product.price, thumbnail: product.thumbnail, title: product.title }} } >
