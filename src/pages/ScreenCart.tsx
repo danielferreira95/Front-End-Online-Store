@@ -16,7 +16,7 @@ function saveProductLocalStorage(key: string, products: Itens[] = []) {
 function ScreenCart() {
   const [itensCart, setItensCart] = useState<Itens[]>([]);
   useEffect(() => {
-    mockLocalStorage(); // Mock Requisito 9 - Quando o Andre entregar a 9, apaga essa linha.
+    // mockLocalStorage(); // Mock Requisito 9 - Quando o Andre entregar a 9, apaga essa linha.
     const data = localStorage.getItem('products');
     const notNull = data || '[]';
     const parseLocalStorage = JSON.parse(notNull);
