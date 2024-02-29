@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Itens } from './cart/types';
 
 function Checkout() {
@@ -9,11 +10,8 @@ function Checkout() {
   const [phone, SetPhone] = useState<string>('');
   const [cep, SetCep] = useState<string>('');
   const [address, SetAddress] = useState<string>('');
-  const [ticketPayment, SetTicketPayment] = useState<string>('');
-  const [visaPayment, SetVisaPayment] = useState<string>('');
-  const [masterPayment, SetMasterPayment] = useState<string>('');
-  const [eloPayment, SetEloPayment] = useState<string>('');
   const [isValidatedField, setIsValidatedField] = useState<boolean>(false);
+  const [checkButtom, setCheckButtom] = useState<boolean>(false);
 
   useEffect(() => {
     const dataLocalStorage = localStorage.getItem('products');
@@ -21,14 +19,19 @@ function Checkout() {
     const parseLocalStorage = JSON.parse(notNull);
     setProducts(parseLocalStorage);
   }, []);
+  const navegate = useNavigate();
 
   function handleSubmitForm() {
     const isValid = (currentValue: string) => currentValue !== '';
     const fieldString = [fullName, email, cpf, phone, cep, address];
     const valid = fieldString.every(isValid);
-    if (!valid) {
+    if (!valid || !checkButtom) {
       setIsValidatedField(true);
-    } else setIsValidatedField(false);
+    } else {
+      setIsValidatedField(false);
+      localStorage.setItem('products', JSON.stringify([]));
+      return navegate('/');
+    }
   }
 
   return (
@@ -102,41 +105,58 @@ function Checkout() {
           />
         </label>
       </form>
-      <div>
-        <h3>Método de Pagamento</h3>
-        <input
-          type="radio"
-          data-testid="ticket-payment"
-          value={ ticketPayment }
-          onChange={ (event) => SetTicketPayment(event.target.value) }
-          required
-        />
-        Boleto
-        <input
-          type="radio"
-          data-testid="visa-payment"
-          value={ visaPayment }
-          onChange={ (event) => SetVisaPayment(event.target.value) }
-          required
-        />
-        Visa
-        <input
-          type="radio"
-          data-testid="master-payment"
-          value={ masterPayment }
-          onChange={ (event) => SetMasterPayment(event.target.value) }
-          required
-        />
-        MasterCard
-        <input
-          type="radio"
-          data-testid="elo-payment"
-          value={ eloPayment }
-          onChange={ (event) => SetEloPayment(event.target.value) }
-          required
-        />
-        Elo
-      </div>
+      <fieldset>
+        <legend>Método de Pagamento</legend>
+
+        <div>
+          <input
+            type="radio"
+            id="ticket-payment"
+            name="groupPayment"
+            value="ticket-payment"
+            data-testid="ticket-payment"
+            onClick={ () => setCheckButtom(true) }
+          />
+          <label htmlFor="ticket-payment">Boleto</label>
+        </div>
+
+        <div>
+          <input
+            type="radio"
+            id="visa-payment"
+            name="groupPayment"
+            value="visa-payment"
+            data-testid="visa-payment"
+            onClick={ () => setCheckButtom(true) }
+          />
+          <label htmlFor="visa-payment">Visa</label>
+        </div>
+
+        <div>
+          <input
+            type="radio"
+            id="master-payment"
+            name="groupPayment"
+            value="master-payment"
+            data-testid="master-payment"
+            onClick={ () => setCheckButtom(true) }
+          />
+          <label htmlFor="master-payment">Mastercard</label>
+        </div>
+
+        <div>
+          <input
+            type="radio"
+            id="elo-payment"
+            name="groupPayment"
+            value="elo-payment"
+            data-testid="elo-payment"
+            onClick={ () => setCheckButtom(true) }
+          />
+          <label htmlFor="elo-payment">Elo</label>
+        </div>
+      </fieldset>
+
       <button
         onClick={ handleSubmitForm }
         type="submit"

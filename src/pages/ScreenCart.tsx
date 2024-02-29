@@ -20,13 +20,13 @@ function ScreenCart() {
     const data = localStorage.getItem('products');
     const notNull = data || '[]';
     const parseLocalStorage = JSON.parse(notNull);
-    setItensCart(parseLocalStorage); // Vamos substitutir pelo Local Storage
+    setItensCart(parseLocalStorage);
   }, []);
 
   function removeItem(id: string) {
     const newData = itensCart.filter((el) => el.id !== id);
     saveProductLocalStorage('products', newData);
-    setItensCart(newData); // Vamos substitutir pelo Local Storage
+    setItensCart(newData);
   }
 
   function increaseItem(id: string) {
@@ -36,7 +36,8 @@ function ScreenCart() {
       }
       return el;
     });
-    setItensCart(newIncrease); // Vamos substitutir pelo Local Storage
+    saveProductLocalStorage('products', newIncrease);
+    setItensCart(newIncrease);
   }
 
   function decreaseItem(id: string) {
@@ -47,7 +48,8 @@ function ScreenCart() {
       }
       return el;
     });
-    setItensCart(newDecrease); // Vamos substitutir pelo Local Storage
+    saveProductLocalStorage('products', newDecrease);
+    setItensCart(newDecrease);
   }
 
   if (itensCart.length === 0) {
