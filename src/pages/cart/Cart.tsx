@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import mockItensCart from '../../__mocks__/mockReq03';
 import { Itens } from './types';
 import CardCart from '../../components/CartCard';
 
 function Cart() {
   const [itensCart, setItensCart] = useState<Itens[]>([]);
   useEffect(() => {
-    setItensCart(mockItensCart);
+    const storedProduct = localStorage.getItem('products');
+    const fallBack = storedProduct || '[]';
+    const ourArray = JSON.parse(fallBack);
+    setItensCart(ourArray);
   }, []);
-  console.log(itensCart);
+
   return (
     <div>
       <h1>Carrinho de Compras</h1>
