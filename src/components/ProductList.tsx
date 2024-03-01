@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ProductType, ProductListProps } from '../types';
 import { getProductsFromCategoryAndQuery } from '../services/api';
-import { Link } from 'react-router-dom';
 
 function ProductList({ categoryId }: ProductListProps) {
   const [products, setProducts] = useState<ProductType[]>([]); // Estado para os produtos
@@ -33,30 +33,35 @@ function ProductList({ categoryId }: ProductListProps) {
     return <div>{error}</div>;
   }
 
-  const handleAddToCard = ( product: ProductType ) => {
-    const products = localStorage.getItem("products") || "[]";
-    const carrinhoDeCompras = JSON.parse( products );
+  const handleAddToCard = (product: ProductType) => {
+    const products = localStorage.getItem('products') || '[]';
+    const carrinhoDeCompras = JSON.parse(products);
     const isDuplicated = carrinhoDeCompras.find((cart: ProductType) => cart.id === product.id);
-    if(!isDuplicated){
-    localStorage.setItem("products", JSON
-    .stringify([...carrinhoDeCompras, { price: product.price, quanty: 1, id: product.id, thumbnail: product.thumbnail, title: product.title }]));
-  } }
+    if (!isDuplicated) {
+      localStorage.setItem('products', JSON
+        .stringify([...carrinhoDeCompras, { price: product.price, quanty: 1, id: product.id, thumbnail: product.thumbnail, title: product.title }]));
+    }
+  };
 
   return (
     // Renderiza a lista de produtos
     <>
       { products.map((product: ProductType) => (
-        <Link to={`/ProductDetails`}
+        <>
+        <Link
+          to="/ProductDetails"
           key={ product.id }
           data-testid="product-detail-link"
-          state={{ product: { price: product.price, thumbnail: product.thumbnail, title: product.title }} } >
+          state={ { product: { price: product.price, thumbnail: product.thumbnail, title: product.title } } }
+        >
           <h2 data-testid="product">{ product.title }</h2>
           <img src={ product.thumbnail } alt={ product.title } />
           <p>{ product.price }</p>
-          <button data-testid="product-add-to-cart" onClick={ () => handleAddToCard(product) }>Adicionar produto ao carrinho</button>
         </Link>
+        <button data-testid="product-add-to-cart" onClick={ () => handleAddToCard(product) }>Adicionar produto ao carrinho</button>
+        </>
       ))}
-      </>
+    </>
   );
 }
 

@@ -25,8 +25,8 @@ export async function getProductById(id: string) {
 }
 
 export async function getDetails(id:string) {
-   const response = await fetch(`${BASE_URL}/items/${id}`);
-   const detailsById = await response.json();
-   return detailsById;
+  const response = await fetch(`${BASE_URL}/items/${id}`);
+  const detailsById = await response.json();
+  return detailsById;
 }
 // getProductById('MLB4457830512').then((product) => console.log(product));

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ProductType } from '../types';
 import { Link } from 'react-router-dom';
+import { ProductType } from '../types';
 
 function Search() {
   const [query, setQuery] = useState('');
@@ -12,15 +12,16 @@ function Search() {
     setProducts(data.results);
   }
 
-  const handleAddToCard = ( product: ProductType ) => {
-    const products = localStorage.getItem("products") || "[]";
-    const carrinhoDeCompras = JSON.parse( products );
+  const handleAddToCard = (product: ProductType) => {
+    const products = localStorage.getItem('products') || '[]';
+    const carrinhoDeCompras = JSON.parse(products);
     const isDuplicated = carrinhoDeCompras.find((cart: ProductType) => cart.id === product.id);
-    if(!isDuplicated){
-    localStorage.setItem("products", JSON
-    .stringify([...carrinhoDeCompras, { price: product.price, quanty: product.installments?.quantity, id: product.id, thumbnail: product.thumbnail, title: product.title }]));
-  } }
-  
+    if (!isDuplicated) {
+      localStorage.setItem('products', JSON
+        .stringify([...carrinhoDeCompras, { price: product.price, quanty: product.installments?.quantity, id: product.id, thumbnail: product.thumbnail, title: product.title }]));
+    }
+  };
+
   return (
     <div>
       <input
@@ -39,16 +40,19 @@ function Search() {
       </p>
       <ul>
         {products.map((product: ProductType) => (
-            <Link to={`/ProductDetails`}
-             key={ product.id } data-testid="product-detail-link"
-             state={{ product: { price: product.price, thumbnail: product.thumbnail, title: product.title }} } >
-             <img src={ product.thumbnail } alt={ product.title } />
-             <li data-testid="product">{ product.title }</li>
-             <span>{ product.price }</span>
-             <button data-testid="product-add-to-cart" onClick={ () => handleAddToCard(product) }>Adicionar produto ao carrinho</button>
-           </Link>
+          <Link
+            to="/ProductDetails"
+            key={ product.id }
+            data-testid="product-detail-link"
+            state={ { product: { price: product.price, thumbnail: product.thumbnail, title: product.title } } }
+          >
+            <img src={ product.thumbnail } alt={ product.title } />
+            <li data-testid="product">{ product.title }</li>
+            <span>{ product.price }</span>
+            <button data-testid="product-add-to-cart" onClick={ () => handleAddToCard(product) }>Adicionar produto ao carrinho</button>
+          </Link>
         ))}
-        </ul>
+      </ul>
     </div>
   );
 }

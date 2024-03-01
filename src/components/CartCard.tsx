@@ -11,7 +11,7 @@ function CardCart({ itemCart: { title, price, quanty, thumbnail, key, id },
         Excluir
       </button>
       <img src={ thumbnail } alt={ `Imagem do ${title}` } />
-      <p data-testid="shopping-cart-product-name" >{ title }</p>
+      <p data-testid="shopping-cart-product-name">{ title }</p>
       <button
         type="button"
         data-testid="product-increase-quantity"
