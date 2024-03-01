@@ -34,12 +34,18 @@ function ProductList({ categoryId }: ProductListProps) {
   }
 
   const handleAddToCard = (product: ProductType) => {
-    const products = localStorage.getItem('products') || '[]';
-    const carrinhoDeCompras = JSON.parse(products);
-    const isDuplicated = carrinhoDeCompras.find((cart: ProductType) => cart.id === product.id);
+    const productsJson = localStorage.getItem('products') || '[]';
+    const carrinhoDeCompras = JSON.parse(productsJson);
+    const isDuplicated = carrinhoDeCompras
+      .find((cart: ProductType) => cart.id === product.id);
     if (!isDuplicated) {
       localStorage.setItem('products', JSON
-        .stringify([...carrinhoDeCompras, { price: product.price, quanty: 1, id: product.id, thumbnail: product.thumbnail, title: product.title }]));
+        .stringify([...carrinhoDeCompras,
+          { price: product.price,
+            quanty: 1,
+            id: product.id,
+            thumbnail: product.thumbnail,
+            title: product.title }]));
     }
   };
 
@@ -48,17 +54,27 @@ function ProductList({ categoryId }: ProductListProps) {
     <>
       { products.map((product: ProductType) => (
         <>
-        <Link
-          to="/ProductDetails"
-          key={ product.id }
-          data-testid="product-detail-link"
-          state={ { product: { price: product.price, thumbnail: product.thumbnail, title: product.title } } }
-        >
-          <h2 data-testid="product">{ product.title }</h2>
-          <img src={ product.thumbnail } alt={ product.title } />
-          <p>{ product.price }</p>
-        </Link>
-        <button data-testid="product-add-to-cart" onClick={ () => handleAddToCard(product) }>Adicionar produto ao carrinho</button>
+          <Link
+            to="/ProductDetails"
+            key={ product.id }
+            data-testid="product-detail-link"
+            state={ {
+              product:
+              {
+                price: product.price,
+                thumbnail: product.thumbnail,
+                title: product.title } } }
+          >
+            <h2 data-testid="product">{ product.title }</h2>
+            <img src={ product.thumbnail } alt={ product.title } />
+            <p>{ product.price }</p>
+          </Link>
+          <button
+            data-testid="product-add-to-cart"
+            onClick={ () => handleAddToCard(product) }
+          >
+            Adicionar produto ao carrinho
+          </button>
         </>
       ))}
     </>

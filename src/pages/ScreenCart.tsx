@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import mockItensCart from '../__mocks__/mockReq03';
 import { Itens } from './cart/types';
 import CardCart from '../components/CartCard';
-
-function mockLocalStorage() {
-  localStorage.setItem('products', JSON.stringify(mockItensCart));
-}
 
 function saveProductLocalStorage(key: string, products: Itens[] = []) {
   const parseLocalStorage = JSON.stringify(products);
@@ -16,7 +11,6 @@ function saveProductLocalStorage(key: string, products: Itens[] = []) {
 function ScreenCart() {
   const [itensCart, setItensCart] = useState<Itens[]>([]);
   useEffect(() => {
-    // mockLocalStorage(); // Mock Requisito 9 - Quando o Andre entregar a 9, apaga essa linha.
     const data = localStorage.getItem('products');
     const notNull = data || '[]';
     const parseLocalStorage = JSON.parse(notNull);
